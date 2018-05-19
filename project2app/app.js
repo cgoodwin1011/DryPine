@@ -1,19 +1,14 @@
-const express = require('express')
-const passport = require('passport')
-const session = require('express-session')
-const RedisStore = require('connect-redis')(session)
+const express = require('express');
+const path = require('path');
+const app = express();
 
-const app = express()
-app.use(session({
-  store: new RedisStore({
-    url: config.redisStore.url
-  }),
-  secret: config.redisStore.secret,
-  resave: false,
-  saveUninitialized: false
-}))
-app.use(passport.initialize())
-app.use(passport.session())
+
+app.set("view engine", "pug");
+app.set("views", path.join(__dirname, "views"));
+
+require("./routes/index.js")(app);
+
+app.listen(3000, () => console.log('Example app listening on port 3000!'))
 
 const passport = require('passport')
 const bcrypt = require('bcrypt')
