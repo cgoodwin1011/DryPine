@@ -63,11 +63,12 @@ nav.navbar.navbar-default( role="navigation" )
       #div-forms
         // Begin # Login Form
         form#login-form
+        form(action='/login', method='post')
           .modal-body
             #div-login-msg
               #icon-login-msg.glyphicon.glyphicon-chevron-right
               span#text-login-msg Type your username and password.
-            input#login_username.form-control(type='text', placeholder='Username (type ERROR for error effect)', required='')
+            input#login_username.form-control(type='text', name="username" placeholder='username (type ERROR for error effect)', required='')
             input#login_password.form-control(type='password', placeholder='Password', required='')
             .checkbox
               label
