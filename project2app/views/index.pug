@@ -1,0 +1,116 @@
+doctype
+html( lang="en" )
+    head
+        title Dry Pines
+        meta( charset='utf-8' )
+        meta( http-equiv='X-UA-Compatible', content='IE=edge' )
+        meta( name='viewport', content='width=device-width, initial-scale=1.0' )
+        meta( name='description', content='Baking Bootstrap Snippets with Jade' )
+        //- Bootswatch Theme
+        link(rel='stylesheet', href='https://use.fontawesome.com/releases/v5.0.13/css/all.css', integrity='sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp', crossorigin='anonymous')
+        link(rel='stylesheet', href='../stylesheets')
+        script(src='jquery-3.3.1.min.js')
+        script(src='./jquery/front.js')
+        link(href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.0/flatly/bootstrap.min.css", rel="stylesheet")
+ 
+    body(style="padding-bottom:10rem;")
+        .container
+ 
+        script( src='//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js' )
+        script( src='//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js' )
+
+
+nav.navbar.navbar-default( role="navigation" )
+    .navbar-header
+        button.navbar-toggle.collapsed( type="button", data-toggle="collapse", data-target="#navbar-inverse", aria-expanded="false", aria-controls="navbar")
+            span.sr-only Toggle navigation
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+        a.navbar-brand(href="#") Dry Pines
+ 
+    #navbar-inverse.collapse.navbar-collapse
+        ul.nav.navbar-nav
+            li.active: a( href="#") Home
+          
+            li.dropdown
+                a.dropdown-toggle( href="#", data-toggle="dropdown", role="button", aria-expanded="false" ) Dropdown 
+                    span.caret
+                ul.dropdown-menu( role="menu" )
+                    li: a( href="#" ) Action
+                    li: a( href="#" ) Another action
+                    li: a( href="#" ) Something else here
+                    li.divider
+                    li.dropdown-header Nav header
+                    li: a( href="#" ) Separated link
+                    li: a( href="#" ) One more separated link
+
+.container
+  .row
+    h1.text-center Login to our chat
+    p.text-center
+      a.btn.btn-primary.btn-lg(href='#', role='button', data-toggle='modal', data-target='#login-modal') Open Login Modal
+// END # BOOTSNIP INFO
+// BEGIN # MODAL LOGIN
+#login-modal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true', style='display: none;')
+  .modal-dialog
+    .modal-content
+      .modal-header(align='center')
+        i.fa.fa-tree(aria-hidden='true')
+        button.close(type='button', data-dismiss='modal', aria-label='Close')
+          span.glyphicon.glyphicon-remove(aria-hidden='true')
+      // Begin # DIV Form
+      #div-forms
+        // Begin # Login Form
+        form#login-form
+        form(action='/login', method='post')
+          .modal-body
+            #div-login-msg
+              #icon-login-msg.glyphicon.glyphicon-chevron-right
+              span#text-login-msg Type your username and password.
+            input#login_username.form-control(type='text', name="username" placeholder='username (type ERROR for error effect)', required='')
+            input#login_password.form-control(type='password', placeholder='Password', required='')
+            .checkbox
+              label
+                input(type='checkbox')
+                |  Remember me
+          .modal-footer
+            div
+              button.btn.btn-primary.btn-lg.btn-block(type='submit') Login
+            div
+              button#login_lost_btn.btn.btn-link(type='button') Lost Password?
+              button#login_register_btn.btn.btn-link(type='button') Register
+        // End # Login Form
+        // Begin | Lost Password Form
+        form#lost-form(style='display:none;')
+          .modal-body
+            #div-lost-msg
+              #icon-lost-msg.glyphicon.glyphicon-chevron-right
+              span#text-lost-msg Type your e-mail.
+            input#lost_email.form-control(type='text', placeholder='E-Mail (type ERROR for error effect)', required='')
+          .modal-footer
+            div
+              button.btn.btn-primary.btn-lg.btn-block(type='submit') Send
+            div
+              button#lost_login_btn.btn.btn-link(type='button') Log In
+              button#lost_register_btn.btn.btn-link(type='button') Register
+        // End | Lost Password Form
+        // Begin | Register Form
+        form#register-form(style='display:none;')
+          .modal-body
+            #div-register-msg
+              #icon-register-msg.glyphicon.glyphicon-chevron-right
+              span#text-register-msg Register an account.
+            input#register_username.form-control(type='text', placeholder='Username (type ERROR for error effect)', required='')
+            input#register_email.form-control(type='text', placeholder='E-Mail', required='')
+            input#register_password.form-control(type='password', placeholder='Password', required='')
+          .modal-footer
+            div
+              button.btn.btn-primary.btn-lg.btn-block(type='submit') Register
+            div
+              button#register_login_btn.btn.btn-link(type='button') Log In
+              button#register_lost_btn.btn.btn-link(type='button') Lost Password?
+        // End | Register Form
+      // End # DIV Form
+// END # MODAL LOGIN
+
