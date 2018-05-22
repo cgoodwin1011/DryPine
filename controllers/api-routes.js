@@ -25,12 +25,14 @@ module.exports = function (app) {
     });
 
     app.get("/api/postsInOrder", function(req, res) {
+      console.log("calling posts in order");
       db.Post.findAll({
-        order: replyTo
+        // sort: db.Post.postId,
+        order: [['replyingTo'],['pTimestamp']]
       }).then(function (results) {
         res.json(results);
       });
-    })
+    });
 
     app.get("/api/thisPost/:id", function (req, res) {
       db.Post.findAll({
@@ -40,7 +42,7 @@ module.exports = function (app) {
       }).then(function (results) {
         res.json(results);
       });
-    })
+    });
 
     //get all posts by user
     app.get("/api/userPosts/:Id", function (req, res) {
@@ -54,10 +56,17 @@ module.exports = function (app) {
       });
     });
 
-    // should be an HTML route
-    app.get("/api/newthread", function (req, res) {
-      res.sendFile(path.join(__dirname, "../newPostTest.html"));
-      // path.join(__dirname, "../newPostTest.html")
+    app.get("/api/originalPosts", function (req, res) {
+      db.Post.findAll( {
+        where: {
+          postId: {
+              $col: 'replyingTo'
+          }
+        }
+      }).then(function(results) {
+        // console.log(db.sequelize.col('replyingTo'))
+        res.json(results);
+      });
     });
 
     // Add a thread
@@ -79,5 +88,22 @@ module.exports = function (app) {
       );
     });
 
-    
-  };
+    app.post("/api/newreply", function (req, res) {
+      db.Post.create({
+        author: req.body.author,
+        replyingTo: req.body.replyingTo,
+        pTimestamp: req.body.created_at,
+        content: req.body.content,
+      }).then(function (results) {
+        // `results` here would be the new thread
+        res.end();
+      });
+    });
+
+  // should be an HTML route
+  app.get("/api/newthread", function (req, res) {
+    res.sendFile(path.join(__dirname, "../newPostTest.html"));
+    // path.join(__dirname, "../newPostTest.html")
+  });
+
+};
