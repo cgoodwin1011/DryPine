@@ -1,42 +1,22 @@
 {
-  "name": "drypines",
+  "name": "twilio-react",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "build": "webpack",
+    "start": "node server",
+    "start:prod": "npm run build && node server.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cgoodwin1011/DryPine.git"
+    "url": "git+ssh://git@github.com/kimobrian/TwilioReact.git"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "O'Brian Kim",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/cgoodwin1011/DryPine/issues"
   },
   "homepage": "https://github.com/cgoodwin1011/DryPine#readme",
-  "dependencies": {
-    "express": "^4.16.3",
-    "express-handlebars": "^3.0.0",
-    "method-override": "^2.3.10",
-    "mysql": "^2.15.0",
-    "mysql2": "^1.5.3",
-    "node-inspect": "^1.11.3",
-    "passport": "^0.4.0",
-    "passport-facebook": "^2.1.1",
-    "path": "^0.12.7",
-    "sequelize": "^4.37.8"
-  },
-  "devDependencies": {},
-  "description": "",
-  "name": "twilio-react",
-  "version": "1.0.0",
-  "description": "Simple Video Chat app Using React",
-  "main": "index.js",
-  "repository": "git@github.com:kimobrian/TwilioReact.git",
-  "author": "O'Brian Kim",
-  "license": "MIT",
   "dependencies": {
     "axios": "^0.17.1",
     "dotenv": "^5.0.0",
@@ -50,11 +30,6 @@
     "twilio-video": "^1.7.0",
     "webpack": "^3.8.1"
   },
-  "scripts": {
-    "build": "./node_modules/.bin/webpack",
-    "start": "node server",
-    "start:prod": "npm run build && node server.js"
-  },
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
@@ -66,5 +41,6 @@
     "style-loader": "^0.19.1",
     "webpack-dev-middleware": "^2.0.4",
     "webpack-hot-middleware": "^2.21.0"
-  }
+  },
+  "description": "Simple Video Chat app Using React"
 }
