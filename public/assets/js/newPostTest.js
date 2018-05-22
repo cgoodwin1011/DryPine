@@ -51,8 +51,6 @@ function submitNewThread(Post) {
   })
 }
 
-
-
 // function submitNewConvo(Post) {
 //   console.log("in submit function")
 //   console.log(Post)
@@ -68,4 +66,3 @@ function submitNewThread(Post) {
 //     data: JSON.stringify(Post)
 //   })
 
-}

@@ -1,5 +1,4 @@
 {
-<<<<<<< HEAD
   "name": "drypines",
   "version": "1.0.0",
   "main": "index.js",
@@ -31,7 +30,6 @@
   },
   "devDependencies": {},
   "description": ""
-=======
   "name": "twilio-react",
   "version": "1.0.0",
   "description": "Simple Video Chat app Using React",
@@ -69,5 +67,4 @@
     "webpack-dev-middleware": "^2.0.4",
     "webpack-hot-middleware": "^2.21.0"
   }
->>>>>>> 6944a38c8dd1eb79e41460075559cd850c68f03a
 }

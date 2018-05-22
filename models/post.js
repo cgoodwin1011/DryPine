@@ -4,32 +4,14 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER, 
       primaryKey: true
     },
-    groupId: {
-      type: DataTypes.INTEGER
+    author: {
+      type: DataTypes.STRING
     },
-    threadId: {
-      type: DataTypes.INTEGER
-    },
-    conversationId: {
-      type: DataTypes.INTEGER
-    },
-    conversationLoc: {
-      type: DataTypes.INTEGER
-    },
-    initiatorId: {
-      type: DataTypes.INTEGER
-    },
-    correspondentId: {
-      type: DataTypes.INTEGER
-    },
-    postWriter: {
+    replyingTo: {
       type: DataTypes.INTEGER
     },
     pTimestamp: {
       type: DataTypes.DATE
-    },
-    headline: {
-      type: DataTypes.STRING
     },
     content: {
       type: DataTypes.TEXT
