@@ -6,7 +6,7 @@ var passport = require("./config/passport");
 var path = require("path")
 
 // Setting up port and requiring models for syncing
-var PORT = process.env.PORT || 8080;
+var PORT = process.env.PORT || 3000;
 var db = require("./models");
 
 // Creating express app and configuring middleware needed for authentication
@@ -21,10 +21,9 @@ app.use(passport.session());
 app.set("view engine", "pug");
 app.set("views", path.join(__dirname, "views"));
 
+app.use(express.static('public'))
+
 require("./routes/index.js")(app);
-
-app.listen(8080, () => console.log('Example app listening on port 3000!'))
-
 
 // Syncing our database and logging a message to the user upon success
 db.sequelize.sync().then(function() {

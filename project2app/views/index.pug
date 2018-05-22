@@ -8,9 +8,10 @@ html( lang="en" )
         meta( name='description', content='Baking Bootstrap Snippets with Jade' )
         //- Bootswatch Theme
         link(rel='stylesheet', href='https://use.fontawesome.com/releases/v5.0.13/css/all.css', integrity='sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp', crossorigin='anonymous')
-        link(rel='stylesheet', href='../stylesheets')
-        script(src='jquery-3.3.1.min.js')
-        script(src='./jquery/front.js')
+        link(rel='stylesheet', href='stylesheets/style.css')
+        script(src='https://code.jquery.com/jquery-3.3.1.min.js', integrity='sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=', crossorigin='anonymous')
+
+        script(src='javascripts/front.js')
         link(href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.0/flatly/bootstrap.min.css", rel="stylesheet")
  
     body(style="padding-bottom:10rem;")
@@ -45,72 +46,98 @@ nav.navbar.navbar-default( role="navigation" )
                     li: a( href="#" ) Separated link
                     li: a( href="#" ) One more separated link
 
-.container
+.container.pb-modalreglog-container
   .row
-    h1.text-center Login to our chat
-    p.text-center
-      a.btn.btn-primary.btn-lg(href='#', role='button', data-toggle='modal', data-target='#login-modal') Open Login Modal
-// END # BOOTSNIP INFO
-// BEGIN # MODAL LOGIN
-#login-modal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true', style='display: none;')
-  .modal-dialog
-    .modal-content
-      .modal-header(align='center')
-        i.fa.fa-tree(aria-hidden='true')
-        button.close(type='button', data-dismiss='modal', aria-label='Close')
-          span.glyphicon.glyphicon-remove(aria-hidden='true')
-      // Begin # DIV Form
-      #div-forms
-        // Begin # Login Form
-        form#login-form
-        form(action='/login', method='post')
-          .modal-body
-            #div-login-msg
-              #icon-login-msg.glyphicon.glyphicon-chevron-right
-              span#text-login-msg Type your username and password.
-            input#login_username.form-control(type='text', name="username" placeholder='username (type ERROR for error effect)', required='')
-            input#login_password.form-control(type='password', placeholder='Password', required='')
-            .checkbox
-              label
-                input(type='checkbox')
-                |  Remember me
-          .modal-footer
-            div
-              button.btn.btn-primary.btn-lg.btn-block(type='submit') Login
-            div
-              button#login_lost_btn.btn.btn-link(type='button') Lost Password?
-              button#login_register_btn.btn.btn-link(type='button') Register
-        // End # Login Form
-        // Begin | Lost Password Form
-        form#lost-form(style='display:none;')
-          .modal-body
-            #div-lost-msg
-              #icon-lost-msg.glyphicon.glyphicon-chevron-right
-              span#text-lost-msg Type your e-mail.
-            input#lost_email.form-control(type='text', placeholder='E-Mail (type ERROR for error effect)', required='')
-          .modal-footer
-            div
-              button.btn.btn-primary.btn-lg.btn-block(type='submit') Send
-            div
-              button#lost_login_btn.btn.btn-link(type='button') Log In
-              button#lost_register_btn.btn.btn-link(type='button') Register
-        // End | Lost Password Form
-        // Begin | Register Form
-        form#register-form(style='display:none;')
-          .modal-body
-            #div-register-msg
-              #icon-register-msg.glyphicon.glyphicon-chevron-right
-              span#text-register-msg Register an account.
-            input#register_username.form-control(type='text', placeholder='Username (type ERROR for error effect)', required='')
-            input#register_email.form-control(type='text', placeholder='E-Mail', required='')
-            input#register_password.form-control(type='password', placeholder='Password', required='')
-          .modal-footer
-            div
-              button.btn.btn-primary.btn-lg.btn-block(type='submit') Register
-            div
-              button#register_login_btn.btn.btn-link(type='button') Log In
-              button#register_lost_btn.btn.btn-link(type='button') Lost Password?
-        // End | Register Form
-      // End # DIV Form
-// END # MODAL LOGIN
+    .col-xs-12.col-md-4.col-md-offset-4
+      legend.pb-modalreglog-legend Modal registration form
+      .input-group.pb-modalreglog-input-group
+        button.btn.btn-primary.pb-modalreglog-submit(data-toggle='modal', id="logIn" data-target='#myModal') Login
+        button.btn.btn-primary.pb-modalreglog-submit(data-toggle='modal', id= "register" data-target='#myModal2') Register
+      #myModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
+        .modal-dialog(role='document')
+          .modal-content
+            .modal-header
+              button.close(type='button', data-dismiss='modal', aria-label='Close')
+                span(aria-hidden='true') ×
+              h4#myModalLabel.modal-title Login form
+            .modal-body
+              form
+                .form-group
+                  label(for='email') Email address
+                  .input-group.pb-modalreglog-input-group
+                    input#email.form-control(type='email', placeholder='Email')
+                    span.input-group-addon
+                      span.glyphicon.glyphicon-user
+                .form-group
+                  label(for='password') Password
+                  .input-group.pb-modalreglog-input-group
+                    input#pws.form-control(type='password', placeholder='Password')
+                    span.input-group-addon
+                      span.glyphicon.glyphicon-lock
+            .modal-footer
+              button.btn.btn-secondary(type='button', data-dismiss='modal') Close
+              button.btn.btn-primary(type='button') Log in
+      #myModal2.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
+        .modal-dialog.modal-sm(role='document')
+          .modal-content
+            .modal-header
+              button.close(type='button', data-dismiss='modal', aria-label='Close')
+                span(aria-hidden='true') ×
+              h4#myModalLabel.modal-title Registration form
+            .modal-body
+              form.pb-modalreglog-form-reg
+                .form-group
+                  #pb-modalreglog-progressbar
+                .form-group
+                  label(for='email') Email address
+                  .input-group.pb-modalreglog-input-group
+                    span.input-group-addon
+                      span.glyphicon.glyphicon-user
+                    input#inputEmail.form-control(type='email', placeholder='Email')
+                .form-group
+                  label(for='password') Password
+                  .input-group.pb-modalreglog-input-group
+                    span.input-group-addon
+                      span.glyphicon.glyphicon-lock
+                    input#inputPws.form-control(type='password', placeholder='Password')
+                
+            .modal-footer
+              button.btn.btn-secondary(type='button', data-dismiss='modal') Close
+              button.btn.btn-primary(type='button') Sign up
+  .pb-modalreglog-footer
+    p
+      | Design provided by 
+      a(href='https://www.prepbootstrap.com') PrepBootstrap
+style.
+  .pb-modalreglog-container
+  {
+  margin-top: 100px;
+  }
+  .pb-modalreglog-legend
+  {
+  text-align: center;
+  }
+  .pb-modalreglog-input-group
+  {
+  margin: auto;
+  }
+  .pb-modalreglog-submit
+  {
+  margin-left: 5px;
+  }
+  .pb-modalreglog-form-reg
+  {
+  text-align: center;
+  }
+  .pb-modalreglog-footer p
+  {
+  text-align: center;
+  margin-top: 20px;
+  }
+  #pb-modalreglog-progressbar
+  {
+  border-radius: 2px;
+  }
 
+  
+  

@@ -1,14 +1,27 @@
-$(document).ready(function() {
+$(document).ready(function () {
   // Getting references to our form and inputs
-  var loginForm = $(".form-login");
-  var emailInput = $("#login_username");
-  var passwordInput = $("login_password");
+  var loginForm = $("#logIn");
+  var emailInput = $("#email");
+  var passwordInput = $("#pws");
+  var register = $("#register");
+
+  $(document).on("click", "#register", function (event) {
+    event.preventDefault();
+    console.log("clicked", event);
+    var userData = {
+      email: emailInput.val().trim(),
+      password: passwordInput.val().trim()
+    }
+
+  })
+
+
 
   // When the form is submitted, we validate there's an email and password entered
-  loginForm.on("submit", function(event) {
+  loginForm.on("submit", function (event) {
     event.preventDefault();
     var userData = {
-      username: emailInput.val().trim(),
+      email: emailInput.val().trim(),
       password: passwordInput.val().trim()
     };
 
@@ -27,10 +40,10 @@ $(document).ready(function() {
     $.post("/api/login", {
       username: username,
       password: password
-    }).then(function(data) {
+    }).then(function (data) {
       window.location.replace(data);
       // If there's an error, log the error
-    }).catch(function(err) {
+    }).catch(function (err) {
       console.log(err);
     });
   }

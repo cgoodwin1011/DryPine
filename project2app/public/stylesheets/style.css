@@ -2,10 +2,10 @@ body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
-.fa-tree
+i
 {
-  width: 40px;
-  height: 40px;
+  width: 100px !important;
+  height: 100px !important;
 }
 
 
