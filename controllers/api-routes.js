@@ -1,4 +1,4 @@
-// this should become a model file...   
+// this should become a model file...
 var express = require('express');
 var router = express.Router();
 var path = require('path');
@@ -7,12 +7,6 @@ var db = require("../models");
 // the routes
 
 module.exports = function (app) {
-
-  // place holder for root
-  // app.get("/", function (req, res) {
-  //   // console.log("at least we got this far");
-  //   res.redirect('/api/allposts');
-  // });
 
   app.get("/", function(req, res) {
     res.sendFile(path.join(__dirname, "../public/index.html"));
@@ -24,7 +18,7 @@ module.exports = function (app) {
     console.log("hi");
     db.Post.findAll({})
       .then(function (results) {
-        console.log(results);
+        // console.log(results);
         res.json(results);
       });
   });
@@ -37,6 +31,7 @@ module.exports = function (app) {
     }).then(function (results) {
       res.json(results);
     });
+
   });
 
   app.get("/api/thisPost/:id", function (req, res) {
@@ -86,15 +81,34 @@ module.exports = function (app) {
         pTimestamp: req.body.created_at,
         content: req.body.content,
       }).then(function (result) {
+        // console.log(result.get('postId'))
+        var temp
+        db.Post.findAll({
+          where: {replyingTo: -1}
+        }).then(function(result) {
+          temp = result[0].postId;
+          db.Post.update({replyingTo: temp}, {
+            where: {postId: temp}
+          },
+        ).then(function(nextresult) {console.log("nothing")});
+        });
         res.end();
-        console.log(result.get('postId'))
-    });
+      })
+
+      // db.Post.findAll({
+      //   replyingTo: { $col: 'db.Post.postId'}
+      //   }, {
+      //   where: {replyingTo: -1}
+      // }
+      // ).then(function(result) {
+      //   console.log("all with missing replyTo's")
+      //   console.log(result);
+      // });
   });
-        
+
+
 
   app.post("/api/newreply/:id", function (req, res) {
-    console.log(req.body);
-    console.log(typeof req.params.id);
     db.Post.create({
       author: req.body.author,
       // replyingTo: 99,
@@ -102,20 +116,17 @@ module.exports = function (app) {
       pTimestamp: req.body.created_at,
       content: req.body.content,
     }).then(function (results) {
-      console.log("now we need to go home")
       res.redirect('/');
     });
   });
 
-  app.get("api/replypost/:id", function (req, res) {
-    console.log(req.params)
-    console.log('inreplypost call');
-  });
+  // app.get("api/replypost/:id", function (req, res) {
+  // });
 
   // should be an HTML route
-  app.get("/api/newthread", function (req, res) {
-    // res.sendFile(path.join(__dirname, "../newPostTest.html"));
-    // path.join(__dirname, "../newPostTest.html")
-  });
+  // app.get("/api/newthread", function (req, res) {
+  //   // res.sendFile(path.join(__dirname, "../newPostTest.html"));
+  //   // path.join(__dirname, "../newPostTest.html")
+  // });
 
 };
