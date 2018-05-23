@@ -1,7 +1,23 @@
-.chirp {
+.rchat {
   padding: 10px;
   margin: 10px;
   background-color: #e8f9ff;
+}
+
+.rreply {
+  margin-left: 50px;
+}
+
+.replyId {
+  /* float: right; */
+}
+
+.a-reply {
+  display: none;
+}
+
+.clearfix {
+  overflow: auto;
 }
 
 .cool-font {

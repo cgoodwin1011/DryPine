@@ -4,7 +4,7 @@ var bodyParser = require('body-parser');
 var session = require("express-session");
 var exphbs = require('express-handlebars');
 var mysql = require('mysql');
-// var methodOverride = require('method-override');
+var methodOverride = require('method-override');
 
 // Requiring passport as we've configured it
 var passport = require("./config/passport");
