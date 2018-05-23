@@ -50,7 +50,7 @@ nav.navbar.navbar-default( role="navigation" )
   .row
     .col-xs-12.col-md-4.col-md-offset-4
       legend.pb-modalreglog-legend Modal registration form
-      .input-group.pb-modalreglog-input-group
+      #logIn.input-group.pb-modalreglog-input-group
         button.btn.btn-primary.pb-modalreglog-submit(data-toggle='modal', id="logIn" data-target='#myModal') Login
         button.btn.btn-primary.pb-modalreglog-submit(data-toggle='modal', id= "register" data-target='#myModal2') Register
       #myModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
@@ -61,7 +61,7 @@ nav.navbar.navbar-default( role="navigation" )
                 span(aria-hidden='true') ×
               h4#myModalLabel.modal-title Login form
             .modal-body
-              form
+              form#logIn
                 .form-group
                   label(for='email') Email address
                   .input-group.pb-modalreglog-input-group
@@ -76,7 +76,7 @@ nav.navbar.navbar-default( role="navigation" )
                       span.glyphicon.glyphicon-lock
             .modal-footer
               button.btn.btn-secondary(type='button', data-dismiss='modal') Close
-              button.btn.btn-primary(type='button') Log in
+              button.btn.btn-primary(type='button' id="logIn") Log in
       #myModal2.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
         .modal-dialog.modal-sm(role='document')
           .modal-content
@@ -85,7 +85,7 @@ nav.navbar.navbar-default( role="navigation" )
                 span(aria-hidden='true') ×
               h4#myModalLabel.modal-title Registration form
             .modal-body
-              form.pb-modalreglog-form-reg
+            form#register.pb-modalreglog-form-reg
                 .form-group
                   #pb-modalreglog-progressbar
                 .form-group
@@ -103,7 +103,7 @@ nav.navbar.navbar-default( role="navigation" )
                 
             .modal-footer
               button.btn.btn-secondary(type='button', data-dismiss='modal') Close
-              button.btn.btn-primary(type='button') Sign up
+              button.btn.btn-primary(type='button' id="signup") Sign up
   .pb-modalreglog-footer
     p
       | Design provided by 

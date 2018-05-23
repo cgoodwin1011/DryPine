@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var bcrypt = require("bcrypt-nodejs");
+var bcrypt = require("bcrypt");
 // Creating our User model
 module.exports = function(sequelize, DataTypes) {
   var User = sequelize.define("User", {
@@ -20,6 +20,7 @@ module.exports = function(sequelize, DataTypes) {
   User.prototype.validPassword = function(password) {
     return bcrypt.compareSync(password, this.password);
   };
+  // console.log(bcrypt.compareSync(password, this.password));
   // Hooks are automatic methods that run during various phases of the User Model lifecycle
   // In this case, before a User is created, we will automatically hash their password
   User.hook("beforeCreate", function(user) {

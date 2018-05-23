@@ -3,11 +3,13 @@ var bodyParser = require("body-parser");
 var session = require("express-session");
 // Requiring passport as we've configured it
 var passport = require("./config/passport");
-var path = require("path")
+var path = require("path");
+var env = require("dotenv").load();
 
 // Setting up port and requiring models for syncing
 var PORT = process.env.PORT || 3000;
 var db = require("./models");
+
 
 // Creating express app and configuring middleware needed for authentication
 var app = express();
