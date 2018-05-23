@@ -45,6 +45,7 @@ function signUpUser(email, password) {
     loginUser(userData.email, userData.password);
     loginEmail.val("");
     loginPW.val("");
+    console.log(event)
   });
   
 
