@@ -34,23 +34,12 @@ nav.navbar.navbar-default( role="navigation" )
         ul.nav.navbar-nav
             li.active: a( href="#") Home
           
-            li.dropdown
-                a.dropdown-toggle( href="#", data-toggle="dropdown", role="button", aria-expanded="false" ) Dropdown 
-                    span.caret
-                ul.dropdown-menu( role="menu" )
-                    li: a( href="#" ) Action
-                    li: a( href="#" ) Another action
-                    li: a( href="#" ) Something else here
-                    li.divider
-                    li.dropdown-header Nav header
-                    li: a( href="#" ) Separated link
-                    li: a( href="#" ) One more separated link
-
+       
 .container.pb-modalreglog-container
   .row
     .col-xs-12.col-md-4.col-md-offset-4
-      legend.pb-modalreglog-legend Modal registration form
-      #logIn.input-group.pb-modalreglog-input-group
+      legend.pb-modalreglog-legend Register to our chat
+      input-group.pb-modalreglog-input-group
         button.btn.btn-primary.pb-modalreglog-submit(data-toggle='modal', id="logIn" data-target='#myModal') Login
         button.btn.btn-primary.pb-modalreglog-submit(data-toggle='modal', id= "register" data-target='#myModal2') Register
       #myModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
@@ -76,7 +65,7 @@ nav.navbar.navbar-default( role="navigation" )
                       span.glyphicon.glyphicon-lock
             .modal-footer
               button.btn.btn-secondary(type='button', data-dismiss='modal') Close
-              button.btn.btn-primary(type='button' id="logIn") Log in
+              button.btn.btn-primary(type='button' ) Log in
       #myModal2.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
         .modal-dialog.modal-sm(role='document')
           .modal-content
@@ -105,9 +94,7 @@ nav.navbar.navbar-default( role="navigation" )
               button.btn.btn-secondary(type='button', data-dismiss='modal') Close
               button.btn.btn-primary(type='button' id="signup") Sign up
   .pb-modalreglog-footer
-    p
-      | Design provided by 
-      a(href='https://www.prepbootstrap.com') PrepBootstrap
+   
 style.
   .pb-modalreglog-container
   {

@@ -2,8 +2,6 @@ $(document).ready(function () {
   // Getting references to our form and inputs
   var loginForm = $("#logIn");
   var emailInput = $("#inputEmail");
-  var loginEmail = $("#email")
-  var loginPW = $("pws");
   var passwordInput = $("#inputPws");
   var register = $("#signup");
 
@@ -32,10 +30,14 @@ function signUpUser(email, password) {
 
   $(document).on("click", "#logIn", function (event)  {
     event.preventDefault();
+    var loginEmail = $("#email");
+    var loginPW = $("#pws");
     var userData = {
       email: loginEmail.val(),
       password: loginPW.val()
     };
+
+    console.log(userData);
 
     if (!userData.email || !userData.password) {
       return;
