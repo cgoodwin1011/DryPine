@@ -1,0 +1,37 @@
+<div id="everything">
+<header>
+  <img id="beer-mug" src="assets/img/krug_hell_0.png" alt="beer mug">
+  <h1><span class="big-letter">m</span>eine <span class="big-letter">B</span>ierliste</h1><h2><span id="header-title">&nbsp;(<span class="big-letter">m</span>y Beer List)<br>Life is too short to drink bad beer twice!</h2>
+</header>
+<div id="container">
+  <div id="beers-untried" class="column"><h1 class="beer-list-title">to do list</h1>
+  <ul>
+    {{#each todoBeer}}
+      <li>
+      <form id="beer-add-new" action="api/triedBeer/{{this.id}}?_method=PUT" method='POST'>
+        {{this.id}}| {{this.beer_name}}
+        <button class="submit-btn" type="submit" data-status="tried" data-id={{this.id}}><span class="submit-btn-label">Tried It!</span></button>
+      </form>
+      {{!-- <button class="submit-btn" data-status="reviewIt" data-id=R{{this.id}}>Review It!</button> --}}
+      </li>
+    {{/each}}
+  </ul>
+  </div>
+
+  <div id="beers-tried" class="column"><h1 class="beer-list-title">been there, drank that</h1>
+  <ul>
+    {{#each doneBeer}}
+      <li>{{this.id}}| {{this.beer_name}}</li>
+    {{/each}}
+  </ul>
+  </div>
+
+  <div id="beer-add-new">
+    <h1 class="beer-list-title">add a beer to your list</h1>
+    <form method='POST' action='api/newBeer'>
+      <input id="beer-new-name" name="newBeerName" type="text">
+      <button type="submit">Add New Beer</button>
+    </form>
+  </div>
+</div>
+</div>

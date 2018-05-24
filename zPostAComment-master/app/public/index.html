@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Discussion!</title>
+  <title>Post A Comment!</title>
 
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
@@ -18,40 +18,47 @@
   <link href="https://fonts.googleapis.com/css?family=Shrikhand" rel="stylesheet">
 
   <!-- CSS -->
-  <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
 
 </head>
 
 <body>
 
   <div class="jumbotron">
-    <h1 class="text-center">Join Our Discusion</h1>
-    <h2 class="text-center">Reply or Start a New Thread</h2>
+    <h1 class="text-center">Post A Comment</h1>
   </div>
+
   <div class="container">
+
     <div class="row">
+
       <div class="col-sm-8 col-sm-offset-2">
         <h2>Recent Comments</h2>
         <hr>
 
-        <div id="rchat-area"></div>
-        <!-- Display all rchats here -->
+        <div id="chirp-area"></div>
+        <!-- Display all chirps here -->
 
       </div>
 
+
+
       <div class="col-sm-4 col-sm-offset-2">
-        <h2 class="text-center">Start A New Thread</h2>
         <p class="cool-font">Name</p> 
+
+        <!-- Hint: add something to the input tag to be able to get its data -->
 
         <input id="author" class="form-control" type="text" placeholder="Enter Your Name">
         <br>  
         <p class="cool-font">Comment</p>
 
-        <textarea id="rchat-box" class="form-control" rows="3" placeholder="Enter a Comment Here!"></textarea>
+        <!-- Hint: add something to the textarea tag to be able to get its data -->
+
+        <textarea id="chirp-box" class="form-control" rows="3" placeholder="Enter a Comment Here!"></textarea>
 
         <!-- Hint: add something to the button tag to be able to listen to its click -->
 
-        <button id="rchat-submit" class="btn btn-lg pull-right">Submit!</button>
+        <button id="chirp-submit" class="btn btn-lg pull-right">Submit!</button>
       </div>
 
 
@@ -59,7 +66,7 @@
 
   </div>
 
-  <script type="text/javascript" src="assets/js/rchat.js"></script>
+  <script type="text/javascript" src="js/chirp.js"></script>
 </body>
 
 </html>

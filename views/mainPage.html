@@ -1,0 +1,109 @@
+<head>
+<!-- <link rel="stylesheet" type="text/css" href="../assets/css/styles.css"> -->
+<style>
+  * {
+  box-sizing: border-box;
+  /* color: green; */
+}
+
+#container {
+  position: relative;
+  width: 100%;
+  text-align: center;
+}
+
+.column-left {
+  width: 20%;
+  display: inline-block;
+  background-color: #CCC;
+}
+
+.column-middle {
+  width: 40%;
+  display: inline-block;
+  background-color: #777777;
+}
+
+.column-right {
+  width: 30%;
+  display: inline-block;
+  background-color: #AAA;
+}
+
+header {
+  background-color: beige;
+}
+
+footer {
+  background-color: black;
+  color: white;
+}
+</style>
+
+
+</head>
+<body>
+<div id="everything">
+  <header>
+    <h1>SiteName</h1>
+  </header>
+  <div id="container">
+    <div id="user-info" class="column-left">
+      <h1> User Name</h1>
+      <img src="" alt="profilem photo">
+      <ul>
+        <li>notification1</li>
+        <li>notification2</li>
+      </ul>
+      <button type="button" name="settings">Settings</button>
+    </div>
+    <div id="rooms" class="column-middle">
+      <div id="rooms-available" class="column-middle-top">
+        {{#each user-room}}
+        <ul id="rooms-avalable">{{this.roomName}}</ul>
+        {{/each}}
+        <button type="button" name=this.guid>this.name</button>
+      </div>
+      <div id="current-room" class="column-middle-bottom">
+        <button type="button" name="new-post" id="new-post">Post</button>
+        <!-- form for adding a post.  is display: none until "new-post" button is clicked -->
+        <div id="post-form-holder">
+            <form id="post-form">
+                Headline:
+                <br>
+                <input id="post-title" type="text" name="post-title">
+                <br>Content:
+                <br>
+                <input id="post-conent" type="textarea" name="post-content">
+                <br>
+                <input id="make-new-post" type="submit" name="make-new-post">
+            </form>
+        </div>
+      </div>
+    </div>
+    <div id="conversations" class="column-right">
+      <ul>
+        {{#each shout-post}}
+        <li>
+          <img src={{this.photo}} alt="posterprofilephoto">
+          <h3>{{this.name}}</h3>
+          {{this.headline}} {{this.content}}
+          <form id="start-conversation" action="#" method='POST'>
+            <button class="submit-btn" type="submit" data-id={{this.id}}>
+              <span class="reply-btn-label">Reply</span>
+            </button>
+            <button class="hide-btn" type="button" data-id={{this.id}}>
+              <span class="hide-btn-label">Hide Post</span>
+            </button>
+            <button class="mute-btn" type="button" data-id={{this.id}}>
+              <span class="mute-btn-label">Mute Author</span>
+            </button>
+          </form>
+        </li>
+        {{/each}}
+      </ul>
+    </div>
+    <footer>(c) real cool people</footer>
+  </div>
+</div>
+</body>
