@@ -1,0 +1,71 @@
+
+body {
+  background-color: antiquewhite;
+}
+
+.front {
+  background-color: white;
+  height: 100vh;
+  width: 65vh;
+  border-radius: 10px;
+  position: relative;
+  left: 25%;
+  box-shadow: 10px 10px 70px #aaaaaa;
+}
+
+#header {
+  padding-top: 30px;
+  padding-left: 19px;
+  padding-bottom: 20px;
+}
+
+.create-topic {
+  border-radius: 100px;
+}
+
+/* -----------------   my changes ^^^^^^^^  ----------------------- */
+
+.chirp {
+  padding: 10px;
+  margin: 10px;
+  width: 515px;
+  /* background-color: #e8f9ff; */
+}
+
+.btn {
+  margin: 10px;
+  /* font-family: Shrikhand, cursive; */
+  color: #97A1A7;
+  background-color: white;
+  /* border-color: #1da1f2; */
+  /* border-style: solid;
+  border-width: 1px; */
+}
+
+.cool-font {
+  /* font-family: Shrikhand, cursive; */
+  font-size: 24px;
+  color: #1da1f2;
+}
+
+.jumbotron {
+  /* font-family: Shrikhand, cursive; */
+  color: white;
+  background-color: #1da1f2;
+}
+
+
+
+
+/* ----------  semi changes (omit font family)  ----------  */
+
+input,
+textarea {
+  margin: 20px;
+}
+
+p {
+  margin: 0;
+  font-size: 16px;
+  color: #657685;
+}
