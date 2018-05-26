@@ -27,6 +27,16 @@
   <div class="jumbotron">
     <h1 class="text-center">Join Our Discusion</h1>
     <h2 class="text-center">Reply or Start a New Thread</h2>
+    <div id="loginBox">
+    <!-- login form -->
+    <form id="loginForm" name='logIn'>
+      <h3> Login or Join!</h3>
+      <input id="userEmail" type="email" placeholder="Your email"><br>
+      <input id="userPassword" type="password" placeholder="Your password"><br>
+      <button id="logInBtn" type="button" label="Log In">Log In</button>
+      <button type="button">Register</button>
+    </form>
+  </div>
   </div>
   <div class="container">
     <div class="row">
@@ -39,18 +49,14 @@
 
       </div>
 
+      <!-- form to start new thread-->
       <div class="col-sm-4 col-sm-offset-2">
         <h2 class="text-center">Start A New Thread</h2>
         <p class="cool-font">Name</p> 
-
         <input id="author" class="form-control" type="text" placeholder="Enter Your Name">
         <br>  
         <p class="cool-font">Comment</p>
-
         <textarea id="rchat-box" class="form-control" rows="3" placeholder="Enter a Comment Here!"></textarea>
-
-        <!-- Hint: add something to the button tag to be able to listen to its click -->
-
         <button id="rchat-submit" class="btn btn-lg pull-right">Submit!</button>
       </div>
 
@@ -60,6 +66,41 @@
   </div>
 
   <script type="text/javascript" src="assets/js/rchat.js"></script>
+  <script>
+    $(document).on("click", "#logInBtn", function (event)  {
+      event.preventDefault();
+      // console.log("handling login????")
+      // console.log(event);
+      var loginEmail = $("#userEmail");
+      var loginPW = $("#userPassword");
+      var userData = {
+        email: loginEmail.val(),
+        password: loginPW.val()
+      };
+
+      // console.log(userData);
+
+      if (!userData.email || !userData.password) {
+        return;
+      }
+
+      // If we have an email and password we run the loginUser 
+      // function and clear the form
+      loginUser(userData.email, userData.password);
+      loginEmail.val("");
+      loginPW.val("");
+    });
+
+    // loginUser does a post to our "api/login" route and if successful, redirects us the the members page
+    function loginUser(email, password) {
+      // console.log("hi");
+      $.post("/api/login", {email , password}).then(function(data) {
+        window.location.replace(data);
+        // If there's an error, handle it by throwing up a bootstrap alert
+      })
+    }
+  
+  </script>
 </body>
 
 </html>

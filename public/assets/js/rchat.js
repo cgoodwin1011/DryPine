@@ -5,7 +5,7 @@ $(document).ready(function () {
 
   $("#rchat-submit").on("click", function (event) {
     event.preventDefault();
-    console.log("button is live");
+    // console.log("button is live");
     var newThread = {
       author: $("#author").val().trim(),
       content: $("#rchat-box").val().trim(),
@@ -22,6 +22,16 @@ $(document).ready(function () {
   // display all existing posts
 
   $.get("/api/postsinorder", function (data) {
+    console.log(data);  
+    if (data.user) {  ///not returning user id for logged in user.....
+      // logged in
+      // $("#rchat-area").show();
+
+      console.log("rchat.js knows we're logged in");
+    } else {
+      console.log("rchat.js does NOT know we're logged in");
+      // $("#rchat-area").hide();
+    }
     if (data.length !== 0) {
       for (var i = data.length-1; i >= 0; i--) {
         var row = $("<div>");

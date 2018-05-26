@@ -3,35 +3,69 @@ var express = require('express');
 var router = express.Router();
 var path = require('path');
 var db = require("../models");
+var passport = require("../config/passport");
+var path = require("path");
+var env = require("dotenv").load();
 
 // the routes
 
 module.exports = function (app) {
 
+  // login for existing users
+  app.post("/api/login", 
+    passport.authenticate("local"), 
+    function(req, res) 
+    {
+      // console.log("did we get here???");
+      //   successRedirect: '/',
+      //   failureRedirect: '/', 
+      //   failureFlash: true)
+    res.redirect('/');
+    // res.send('');
+  });
+// );
+
+
+  // ---------------------------------------------------
   app.get("/", function(req, res) {
-    res.sendFile(path.join(__dirname, "../public/index.html"));
+    console.log("req.user is", req.user);
+    res.sendFile(path.join(__dirname, "../public/conversations.html"));
+
+  });
+
+  // returns posts in presentation order
+  app.get("/api/postsInOrder", function(req, res) {
+    console.log("calling posts in order");
+    console.log("user is ", req.user);
+    if (req.user != undefined) {
+      console.log("smile");
+
+
+      db.Post.findAll({
+        // sort: db.Post.postId,
+        order: [['replyingTo'],['postId']]
+      }).then(function (results) {
+        // need to attach req.user to the results.  
+        res.json(results);
+      });
+
+
+
+    } else{
+      console.log("frown");
+    }
+    
+
   });
 
   //get all posts
   // returning them as JSON.
   app.get("/api/allposts", function (req, res) {
-    console.log("hi");
     db.Post.findAll({})
       .then(function (results) {
         // console.log(results);
         res.json(results);
       });
-  });
-
-  app.get("/api/postsInOrder", function(req, res) {
-    console.log("calling posts in order");
-    db.Post.findAll({
-      // sort: db.Post.postId,
-      order: [['replyingTo'],['postId']]
-    }).then(function (results) {
-      res.json(results);
-    });
-
   });
 
   app.get("/api/thisPost/:id", function (req, res) {
@@ -71,10 +105,6 @@ module.exports = function (app) {
 
   // Add a thread
   app.post("/api/newthread", function (req, res) {
-    // var selfReply;
-    // db.Post.max('postId').then(
-    //   function (result) {
-    //     selfReply = result+1;
       db.Post.create({
         author: req.body.author,
         replyingTo: -1,
@@ -106,8 +136,6 @@ module.exports = function (app) {
       // });
   });
 
-
-
   app.post("/api/newreply/:id", function (req, res) {
     db.Post.create({
       author: req.body.author,
@@ -119,6 +147,11 @@ module.exports = function (app) {
       res.redirect('/');
     });
   });
+
+
+
+
+
 
   // app.get("api/replypost/:id", function (req, res) {
   // });

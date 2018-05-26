@@ -5,6 +5,13 @@ var session = require("express-session");
 var exphbs = require('express-handlebars');
 var mysql = require('mysql');
 var methodOverride = require('method-override');
+var session = require("express-session");
+
+// Requiring passport as we've configured it
+var passport = require("./config/passport");
+var path = require("path");
+var env = require("dotenv").load();
+
 
 // Requiring passport as we've configured it
 var passport = require("./config/passport");
