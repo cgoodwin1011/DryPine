@@ -35,10 +35,9 @@ module.exports = function (app) {
   //   })
   // );
     function (req, res) {
-      console.log("req in login is ", req)
+      console.log("req in login is ", req);
       res.redirect('/api/postsinorder');
       // res.redirect('/api/postsinorder');
-      ;
     }
   );
 
@@ -136,7 +135,7 @@ module.exports = function (app) {
       content: req.body.content,
     }).then(function (result) {
       // console.log(result.get('postId'))
-      var temp
+      var temp;
       db.Post.findAll({
         where: {
           replyingTo: -1
@@ -149,22 +148,12 @@ module.exports = function (app) {
           where: {
             postId: temp
           }
-        }, ).then(function (nextresult) {
-          console.log("nothing")
+        } ).then(function (nextresult) {
+          console.log("nothing");
         });
       });
       res.end();
-    })
-
-    // db.Post.findAll({
-    //   replyingTo: { $col: 'db.Post.postId'}
-    //   }, {
-    //   where: {replyingTo: -1}
-    // }
-    // ).then(function(result) {
-    //   console.log("all with missing replyTo's")
-    //   console.log(result);
-    // });
+    });
   });
 
   app.post("/api/newreply/:id", function (req, res) {
