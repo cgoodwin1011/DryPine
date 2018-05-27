@@ -21,7 +21,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.DATE
     },
   }, {
-    timestamps: false
+    timestamps: true
   });
   User.prototype.validPassword = function(password) {
     // console.log("this.password is ", this.password, "and password is ", password);

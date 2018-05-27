@@ -61,6 +61,7 @@ function signUpUser(email, password) {
   // loginUser does a post to our "api/login" route and if successful, redirects us the the members page
   function loginUser(email, password) {
     $.post("/api/login", {email: email , password: password}).then(function(data) {
+      console.log("data is ", data)
       window.location.replace(data);
       // If there's an error, handle it by throwing up a bootstrap alert
     })

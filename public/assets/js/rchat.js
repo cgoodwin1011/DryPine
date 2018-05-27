@@ -14,50 +14,67 @@ $(document).ready(function () {
 
     $.post("/api/newthread", newThread)
       .then(function (res) {
-        location.reload();  
+        location.reload();
       });
 
   });
 
   // display all existing posts
 
-  $.get("/api/postsinorder", function (data) {
-    console.log(data);  
-    if (data.user) {  ///not returning user id for logged in user.....
+  $.get("/api/postsinorder", function (dataIn) {
+    console.log("the data is ", dataIn);
+    var theUser = dataIn[0];
+    console.log("theUser is ", theUser);
+    var data = dataIn[1];
+    if (theUser.user) { ///not returning user id for logged in user.....
       // logged in
       // $("#rchat-area").show();
-
+      // location.reload();
       console.log("rchat.js knows we're logged in");
+
+
+      if (data.length !== 0) {
+        for (var i = data.length - 1; i >= 0; i--) {
+          var row = $("<div>");
+          row.addClass("rchat");
+          row.addClass("clearfix");
+          row.attr('data-postId', data[i].postId);
+          row.attr('data-replyingTo', data[i].replyingTo);
+          row.append("<p><strong>" + data[i].author + "</strong> posted at " + moment(data[i].pTimestamp).format("h:mma on dddd") + "</p>");
+          row.append("<p>" + data[i].content + "</p>");
+          // row.append("<form action='api/replypost/"+data[i].postId+"?_method=GET' method='POST'>");
+          // 
+
+          if (data[i].postId == data[i].replyingTo || data[i].replyingTo == -1) {
+            row.append("<button id='replyTo" + data[i].postId + "' type='button' class='reply' onclick='onReplyClick(this.id)' style='float: right' >reply</button>");
+            row.append("<div id='replyToForm" + data[i].postId + "' class='a-reply'><form action='/api/newreply/" + data[i].postId + "' method='POST' id='replyForm" + data[i].postId + "' name='comment'>Your thoughts?<input type='textarea' name='content'><br>Your Name:<input type='textarea' name='author'><button type='submit' class='reply' style='float: right'>submit reply</button></form></div>");
+          } else {
+            row.addClass("rreply");
+          }
+          $("#rchat-area").prepend(row);
+        };
+      };
+      $("#loginForm").hide();
+      $("#registerBtnTxt").text('Log Out');
+      $("#registerBtn").val('logout');
+      $("#discussionHead").text("Recent Discussions");
+      $("#newThreadBox").show();
+
     } else {
+      $("#loginForm").show();
+      $("#registerBtnTxt").text('Log In');
+      $("#registerBtn").prop('value', 'login');
+      $("#discussionHead").text("Please Sign In");
+      $("#newThreadBox").hide();
+      $("#registerBtn").val('register');
       console.log("rchat.js does NOT know we're logged in");
       // $("#rchat-area").hide();
     }
-    if (data.length !== 0) {
-      for (var i = data.length-1; i >= 0; i--) {
-        var row = $("<div>");
-        row.addClass("rchat");
-        row.addClass("clearfix");
-        row.attr('data-postId', data[i].postId);
-        row.attr('data-replyingTo', data[i].replyingTo);
-        row.append("<p><strong>" + data[i].author + "</strong> posted at " + moment(data[i].pTimestamp).format("h:mma on dddd") + "</p>");
-        row.append("<p>" + data[i].content + "</p>");
-        // row.append("<form action='api/replypost/"+data[i].postId+"?_method=GET' method='POST'>");
-        // 
-        
-        if (data[i].postId == data[i].replyingTo || data[i].replyingTo == -1) {
-            row.append("<button id='replyTo"+data[i].postId+"' type='button' class='reply' onclick='onReplyClick(this.id)' style='float: right' >reply</button>");
-            row.append("<div id='replyToForm"+data[i].postId+"' class='a-reply'><form action='/api/newreply/"+data[i].postId+"' method='POST' id='replyForm"+data[i].postId+"' name='comment'>Your thoughts?<input type='textarea' name='content'><br>Your Name:<input type='textarea' name='author'><button type='submit' class='reply' style='float: right'>submit reply</button></form></div>");
-        } else {
-          row.addClass("rreply");
-        }
-        $("#rchat-area").prepend(row);
-      };
-    };
   });
 });
 
-  $(document).on("click", "#btn_a", function(){
-    alert ('button clicked');
+$(document).on("click", "#btn_a", function () {
+  alert('button clicked');
 });
 
 
@@ -69,10 +86,10 @@ $(document).ready(function () {
 // });
 
 function onReplyClick(id) {
-    console.log("that worked. Id is ", id);
-    var formDivId = [id.slice(0,7), "Form", id.slice(7)].join('');
-    console.log("formDivId is", formDivId)
-    $("#"+id).toggle();
-    $("#"+formDivId).css("border", "2px green solid");
-    $("#"+formDivId).toggle();
+  console.log("that worked. Id is ", id);
+  var formDivId = [id.slice(0, 7), "Form", id.slice(7)].join('');
+  console.log("formDivId is", formDivId)
+  $("#" + id).toggle();
+  $("#" + formDivId).css("border", "2px green solid");
+  $("#" + formDivId).toggle();
 }
