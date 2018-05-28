@@ -12,35 +12,66 @@ var env = require("dotenv").load();
 module.exports = function (app) {
 
   app.post("/api/signup", function (req, res) {
-    console.log("req.body is ", req.body);
     db.User.create({
       email: req.body.email,
       password: req.body.password
     }).then(function () {
-      // res.redirect(307, "/api/login");
+      res.redirect(307, "/api/login");
+      res.end();
     }).catch(function (err) {
-      console.log(err);
+      // console.log(err);
       res.json(err);
       // res.status(422).json(err.errors[0].message);
     });
   });
 
   // login for existing users
-  app.post("/api/login", 
+  // app.get("/api/login", function(req, res, next)
+  // {
+  //   // console.log("req is", req.body);
+  //   // console.log("-------------------------------");
+  //   // console.log("res is", res);
+  //   // console.log(next);
+  //   passport.authenticate("local",
+  //   function (err, user, info) {
+  //     console.log("err is ", err);
+  //     console.log("user is ", user);
+  //     res.redirect('/');
+  //     res.end();
+  //     }
+  //   );
+  // });
+
+
+  app.post("/api/login",
+    passport.authenticate("local"),
+    function (req, res, third) {
+      console.log("req is", req.body);
+      console.log("-------------------------------");
+      console.log("res is", res);
+      // console.log("-------------------------------");
+      // console.log("res is", res.body);
+      res.redirect('/');
+      res.end();
+    });
+
+  // app.post("/api/login",
   //   passport.authenticate("local",
   //   {
-  //       successRedirect : '/',
-  //       failureRedirect : '/',
-  //       failureFlash : true
-  //   })
+  //     successRedirect: '/',
+  //     failureRedirect: '/404', // see text
+  //     // failureFlash: true // optional, see text as well
+  //   }),
+  //   function (req, res) {
+  //     console.log("res is", res);
+  //     res.redirect('/');
+  //     res.end();
+  //   }
   // );
-    function (req, res) {
-      console.log("req in login is ", req);
-      res.redirect('/api/postsinorder');
-      // res.redirect('/api/postsinorder');
-    }
-  );
 
+
+
+  // log out current user
   app.get("/logout", function (req, res) {
     req.logout();
     res.redirect("/");
@@ -48,17 +79,14 @@ module.exports = function (app) {
 
   // ---------------------------------------------------
   app.get("/", function (req, res) {
-    console.log("req.user is", req.user);
     res.sendFile(path.join(__dirname, "../public/conversations.html"));
 
   });
 
   // returns posts in presentation order
   app.get("/api/postsInOrder", function (req, res) {
-    console.log("calling posts in order");
-    // console.log("user is ", req.user);
     if (req.user != undefined) {
-      // there is a logged in user
+      console.log("there is a logged in user");
       db.Post.findAll({
         // sort: db.Post.postId,
         order: [
@@ -66,13 +94,11 @@ module.exports = function (app) {
           ['postId']
         ]
       }).then(function (results) {
-        // need to attach req.user to the results.  
+        // need to attach req.user to the results.
         var user = [{
           user: req.user.email
         }];
-        // console.log("user array is ", user);
         user.push(results);
-        // console.log("user array is ", user);
         res.json(user);
       });
     } else {
@@ -86,7 +112,6 @@ module.exports = function (app) {
   app.get("/api/allposts", function (req, res) {
     db.Post.findAll({})
       .then(function (results) {
-        // console.log(results);
         res.json(results);
       });
   });
@@ -121,39 +146,43 @@ module.exports = function (app) {
         }
       }
     }).then(function (results) {
-      // console.log(db.sequelize.col('replyingTo'))
       res.json(results);
     });
   });
 
   // Add a thread
   app.post("/api/newthread", function (req, res) {
-    db.Post.create({
-      author: req.body.author,
-      replyingTo: -1,
-      pTimestamp: req.body.created_at,
-      content: req.body.content,
-    }).then(function (result) {
-      // console.log(result.get('postId'))
-      var temp;
-      db.Post.findAll({
-        where: {
-          replyingTo: -1
-        }
+
+    if (req.user) {
+
+      db.Post.create({
+        author: req.body.author,
+        replyingTo: -1,
+        pTimestamp: req.body.created_at,
+        content: req.body.content,
       }).then(function (result) {
-        temp = result[0].postId;
-        db.Post.update({
-          replyingTo: temp
-        }, {
+        var temp;
+        db.Post.findAll({
           where: {
-            postId: temp
+            replyingTo: -1
           }
-        } ).then(function (nextresult) {
-          console.log("nothing");
+        }).then(function (result) {
+          temp = result[0].postId;
+          db.Post.update({
+            replyingTo: temp
+          }, {
+            where: {
+              postId: temp
+            }
+          }).then(function (nextresult) {});
         });
+        res.end();
       });
+
+    } else {
       res.end();
-    });
+    }
+
   });
 
   app.post("/api/newreply/:id", function (req, res) {
@@ -168,10 +197,19 @@ module.exports = function (app) {
     });
   });
 
-
-
-
-
+  app.get("/api/user_data", function (req, res) {
+    if (!req.user) {
+      // The user is not logged in, send back an empty object
+      res.json({});
+    } else {
+      // Otherwise send back the user's email and id
+      // Sending back a password, even a hashed password, isn't a good idea
+      res.json({
+        email: req.user.username,
+        id: req.user.id
+      });
+    }
+  });
 
   // app.get("api/replypost/:id", function (req, res) {
   // });

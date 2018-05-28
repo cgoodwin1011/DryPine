@@ -15,9 +15,9 @@
     var userData = {
       email: emailInput.val(),
       password: passwordInput.val()
-    } 
+    };
     // console.log(userData)
-    signUpUser(userData.email, userData.password)
+    signUpUser(userData.email, userData.password);
   
     function handleLoginErr(err) {
       $("#alert .msg").text(err.responseJSON);
@@ -29,9 +29,9 @@ function signUpUser(email, password) {
         // window.location.replace(data);
         // console.log(data);
         // If there's an error, handle it by throwing up a bootstrap alert
-      })
+      });
     }
-  })
+  });
 
 
   // login dialogue
@@ -61,9 +61,9 @@ function signUpUser(email, password) {
   // loginUser does a post to our "api/login" route and if successful, redirects us the the members page
   function loginUser(email, password) {
     $.post("/api/login", {email: email , password: password}).then(function(data) {
-      console.log("data is ", data)
+      console.log("data is ", data);
       window.location.replace(data);
       // If there's an error, handle it by throwing up a bootstrap alert
-    })
+    });
   }
 

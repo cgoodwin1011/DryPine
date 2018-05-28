@@ -21,6 +21,9 @@
   <link rel="stylesheet" type="text/css" href="assets/css/style.css">
 
 </head>
+<script>
+  $.get('api/postsInOrder');
+</script>
 
 <body>
 
@@ -29,8 +32,9 @@
     <h2 class="text-center">Reply or Start a New Thread</h2>
     <div id="loginBox">
       <!-- login form -->
+
+      <h3 id="loginLabel"> Login or Join!</h3>
       <form id="loginForm" name='logIn'>
-        <h3> Login or Join!</h3>
         <input id="userEmail" type="email" placeholder="Your email">
         <br>
         <input id="userPassword" type="password" placeholder="Your password">
@@ -61,114 +65,25 @@
       <div class="col-sm-4 col-sm-offset-2">
         <div id="newThreadBox">
           <h2 class="text-center">Start A New Thread</h2>
-          <p class="cool-font">Name</p>
+          <!-- <p class="cool-font">Name</p>
           <input id="author" class="form-control" type="text" placeholder="Enter Your Name">
           <br>
-          <p class="cool-font">Comment</p>
+          <p class="cool-font">Comment</p> -->
           <textarea id="rchat-box" class="form-control" rows="3" placeholder="Enter a Comment Here!"></textarea>
           <button id="rchat-submit" class="btn btn-lg pull-right">Submit!</button>
         </div>
       </div>
-
-
     </div>
-
   </div>
 
   <script type="text/javascript" src="assets/js/rchat.js"></script>
   <script>
-    // Handling click on login button
-    $(document).on("click", "#logInBtn", function (event) {
-      event.preventDefault();
-      var loginEmail = $("#userEmail");
-      var loginPW = $("#userPassword");
-      var userData = {
-        email: loginEmail.val(),
-        password: loginPW.val()
-      };
-      if (!userData.email || !userData.password) {
-        return;
-      }
-      // If we have an email and password we run the loginUser 
-      // function and clear the form
-      loginUser(userData.email, userData.password);
-      loginEmail.val("");
-      loginPW.val("");
-      // window.location = window.location.href + "#refresh";
-      window.location.reload();
-      // $("#loginForm").hide();
-      // $("#registerBtnTxt").text('Log Out');
+      
 
-    });
-
-    // handle click on register button, 
-    // if a user is logged in, register button becomes a 'logout' button...
-    //which either registers a new user or logs one out"
-    $(document).on("click", "#registerBtn", function (req, res) {
-      event.preventDefault();
-      console.log($("#registerBtn").val())
-      // register new user
-      if ($("#registerBtn").val() == 'register') {
-        //---------------
-        var registerEmail = $("#userEmail");
-        var registerPW = $("#userPassword");
-        var userData = {
-          email: registerEmail.val(),
-          password: registerPW.val()
-        };
-        // console.log(userData)
-        signUpUser(userData.email, userData.password)
-
-        function handleLoginErr(err) {
-          $("#alert .msg").text(err.responseJSON);
-          $("#alert").fadeIn(500);
-        };
-
-        //----------------
-      }
-      // log out a logged in user
-      else if ($("#registerBtn").val() == 'logout') {
-        $.ajax({
-          url: "/logout",
-          method: 'GET',
-          success: function () {
-            console.log(req);
-            // req.logout();
-            $("#loginForm").show();
-            $("#registerBtnTxt").text('Register');
-            $("#newThreadBox").hide();
-            // res.redirect("/");
-
-            // window.location = window.location.href + "#refresh";
-            window.location.reload();
-          }
-        });
-      }
-    });
-
-    function signUpUser(email, password) {
-      $.post("/api/signup", {
-        email: email,
-        password: password
-      }).then(function (data) {
-        // window.location.replace(data);
-        // console.log(data);
-        // If there's an error, handle it by throwing up a bootstrap alert
-      })
-    }
-
-    // loginUser does a post to our "api/login" route and if successful, redirects us the the members page
-    function loginUser(email, password) {
-      // console.log("hi");
-      $.post("/api/login", {
-        email,
-        password
-      }).then(function (data) {
-        // console.log("data is ", data);
-        window.location.replace(data);
-        // If there's an error, handle it by throwing up a bootstrap alert
-      })
-    }
+    function handleLoginErr(err) {
+      $("#alert .msg").text(err.responseJSON);
+      $("#alert").fadeIn(500);
+    };
   </script>
 </body>
 

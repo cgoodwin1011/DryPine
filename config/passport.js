@@ -5,7 +5,8 @@ var bodyParser = require('body-parser');
 
 var db = require("../models");
 
-// Telling passport we want to use a Local Strategy. In other words, we want login with a username/email and password
+// Telling passport we want to use a Local Strategy. 
+//In other words, we want login with a username/email and password
 passport.use(new LocalStrategy(
   {
     usernameField: "email"
@@ -19,11 +20,13 @@ passport.use(new LocalStrategy(
     }).then(function(user) {
       //  no user with the given email
       if (!user) {
+        console.log("no such user");
         return done(null, false, {message: "Incorrect email."
         });
       }
       // user exists, check password
       else if (!user.validPassword(password)) {
+        console.log("wrong password");
         return done(null, false, {message: "Incorrect password."});
       }
       // If none of the above, return the user
