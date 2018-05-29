@@ -25,51 +25,32 @@ module.exports = function (app) {
     });
   });
 
-  // login for existing users
-  // app.get("/api/login", function(req, res, next)
-  // {
-  //   // console.log("req is", req.body);
-  //   // console.log("-------------------------------");
-  //   // console.log("res is", res);
-  //   // console.log(next);
-  //   passport.authenticate("local",
-  //   function (err, user, info) {
-  //     console.log("err is ", err);
-  //     console.log("user is ", user);
-  //     res.redirect('/');
-  //     res.end();
-  //     }
-  //   );
-  // });
-
-
   app.post("/api/login",
     passport.authenticate("local"),
     function (req, res, third) {
-      console.log("req is", req.body);
-      console.log("-------------------------------");
-      console.log("res is", res);
+      // we never get here when authentication fails.....
+      // console.log("req is", req.body);
       // console.log("-------------------------------");
-      // console.log("res is", res.body);
+      // console.log("res is", res);
+      // console.log("-------------------------------");
+      // console.log("third is ", third);
       res.redirect('/');
       res.end();
     });
 
-  // app.post("/api/login",
-  //   passport.authenticate("local",
-  //   {
-  //     successRedirect: '/',
-  //     failureRedirect: '/404', // see text
-  //     // failureFlash: true // optional, see text as well
-  //   }),
-  //   function (req, res) {
-  //     console.log("res is", res);
-  //     res.redirect('/');
-  //     res.end();
-  //   }
-  // );
-
-
+  app.get("/api/login",
+    passport.authenticate("local",
+    {
+      successRedirect: '/',
+      failureRedirect: '/404', // see text
+      // failureFlash: true // optional, see text as well
+    }),
+    function (req, res) {
+      console.log("res is", res);
+      res.redirect('/');
+      res.end();
+    }
+  );
 
   // log out current user
   app.get("/logout", function (req, res) {
@@ -80,7 +61,6 @@ module.exports = function (app) {
   // ---------------------------------------------------
   app.get("/", function (req, res) {
     res.sendFile(path.join(__dirname, "../public/conversations.html"));
-
   });
 
   // returns posts in presentation order
@@ -125,6 +105,12 @@ module.exports = function (app) {
       res.json(results);
     });
   });
+
+  app.get("/api/user", function(req, res) {
+    console.log(req.user);
+    res.json(req.user)
+  }
+  )
 
   //get all posts by user
   app.get("/api/userPosts/:Id", function (req, res) {

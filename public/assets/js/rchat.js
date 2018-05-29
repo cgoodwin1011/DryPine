@@ -52,7 +52,7 @@ $(document).ready(function () {
     })
   }
 
-  // LOGIN BTN IMPLEMENTATION
+  // LOGIN BTN IMPLEMENTATION  
   // handles clicks on login button
   $(document).on("click", "#logInBtn", function (event) {
     event.preventDefault();
@@ -80,11 +80,11 @@ $(document).ready(function () {
 
   function loginUser(email, password) {
     console.log("calling loginUser...")
-    $.post("/api/login", {
+    $.get("/api/login", {
       email,
       password
     }, function (data) {
-      // console.log(data);
+      console.log("returned data is ", data);
       // window.location.replace(data);
       window.location.reload();
       // $("#loginLabel").text("Incorrect User Name or Password.  Please try again or register");
@@ -94,16 +94,36 @@ $(document).ready(function () {
 
   $("#rchat-submit").on("click", function (event) {
     event.preventDefault();
-    var newThread = {
-      author: $("#author").val().trim(),
-      content: $("#rchat-box").val().trim(),
-    };
-    // response.json(x.get('id'))
+    $.get("api/user", function(req, res) {
+      console.log("called get api/user");
+      console.log("res.email is", req.email);
+      var newThread = {
+        author: req.email,
+        content: $("#rchat-box").val().trim(),
+      };
+      // response.json(x.get('id'))
+  
+      $.post("/api/newthread", newThread)
+        .then(function (res) {
+          location.reload();
+        })
+    
+    } );
 
-    $.post("/api/newthread", newThread)
-      .then(function (res) {
-        location.reload();
-      });
+
+
+
+
+    // var newThread = {
+    //   author: 'Joe',
+    //   content: $("#rchat-box").val().trim(),
+    // };
+    // // response.json(x.get('id'))
+
+    // $.post("/api/newthread", newThread)
+    //   .then(function (res) {
+    //     location.reload();
+    //   });
 
   });
 
