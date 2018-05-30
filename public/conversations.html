@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Discussion!</title>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+    crossorigin="anonymous">
+  <!-- jQuery -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+  <!-- Moment.js -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.16.0/moment.min.js"></script>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Shrikhand" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+
+</head>
+<script>
+  $.get('api/postsInOrder');
+</script>
+
+<body>
+
+  <div class="jumbotron">
+    <h1 class="text-center">Join Our Discusion</h1>
+    <h2 class="text-center">Reply or Start a New Thread</h2>
+    <div id="loginBox">
+      <!-- login form -->
+
+      <h3 id="loginLabel"> Login or Join!</h3>
+      <form id="loginForm" name='logIn'>
+        <input id="userEmail" type="email" placeholder="Your email">
+        <br>
+        <input id="userPassword" type="password" placeholder="Your password">
+        <br>
+        <button id="logInBtn" type="button" label="Log In">
+          <span id="logInBtnTxt">Log In</span>
+        </button>
+      </form>
+      <form id="registerForm" name="register" value="Register">
+        <button id='registerBtn' type="button" value="register">
+          <span id="registerBtnTxt">Register</span>
+        </button>
+      </form>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-8 col-sm-offset-2">
+        <h2 id="discussionHead">Please sign in</h2>
+        <hr>
+
+        <div id="rchat-area"></div>
+        <!-- Display all rchats here -->
+
+      </div>
+
+      <!-- form to start new thread-->
+      <div class="col-sm-4 col-sm-offset-2">
+        <div id="newThreadBox">
+          <h2 class="text-center">Start A New Thread</h2>
+          <!-- <p class="cool-font">Name</p>
+          <input id="author" class="form-control" type="text" placeholder="Enter Your Name">
+          <br>
+          <p class="cool-font">Comment</p> -->
+          <textarea id="rchat-box" class="form-control" rows="3" placeholder="Enter a Comment Here!"></textarea>
+          <button id="rchat-submit" class="btn btn-lg pull-right">Submit!</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript" src="assets/js/rchat.js"></script>
+  <script>
+      
+
+    function handleLoginErr(err) {
+      $("#alert .msg").text(err.responseJSON);
+      $("#alert").fadeIn(500);
+    };
+  </script>
+</body>
+
+</html>

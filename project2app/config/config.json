@@ -1,8 +1,8 @@
 {
   "development": {
     "username": "root",
-    "password": "Ruby1234",
-    "database": "DryPines",
+    "password": "root",
+    "database": "DryPinesZ",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },

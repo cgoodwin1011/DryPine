@@ -2,7 +2,6 @@ const loggedInUser = 2;
 
 $(document).ready(function () {
   $("#newpost").on("submit", function (event) {
-    console.log(event)
     event.preventDefault();
     // catch and kill blanks
     if (!$("#headline").val() || !$("#content").val()) {
@@ -14,7 +13,6 @@ $(document).ready(function () {
       headline: $("#headline").val().trim(),
       content: $("#content").val().trim()
     };
-    console.log("newThread is ", newThread);
     submitNewThread(newThread);
   });
 
@@ -30,17 +28,13 @@ $(document).ready(function () {
 //     headline: "-------",
 //     content: $("#content").val().trim()
 //   }
-//   console.log("newThread is ", newThread);
 //   submitNewConvo(newThread);
 // });
 
 });
 
 function submitNewThread(Post) {
-  console.log("in submit function");
-  console.log(Post);
   // $.post("/api/newthread", Post, function() {
-  //   console.log("in here")
   //   // window.location.href = "/api/publicposts";
   // });
   $.ajax({
@@ -52,10 +46,7 @@ function submitNewThread(Post) {
 }
 
 // function submitNewConvo(Post) {
-//   console.log("in submit function")
-//   console.log(Post)
 //   // $.post("/api/newthread", Post, function() {
-//   //   console.log("in here")
 //   //   // window.location.href = "/api/publicposts";
 //   // });
 

@@ -3,5 +3,3 @@
     
     ////
   };
-
-  console.log("new Post is \n", newPost)

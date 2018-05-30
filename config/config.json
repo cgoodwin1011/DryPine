@@ -1,3 +1,7 @@
+
+
+
+
 {
   "development": {
     "username": "root",
@@ -14,10 +18,10 @@
     "dialect": "mysql"
   },
   "production": {
-    "username": "root",
-    "password": null,
+    "username": "xlaxcvynhmr7ladi",
+    "password": "el8xzr5h71b78gm2",
     "database": "database_production",
-    "host": "127.0.0.1",
+    "host": "k9xdebw4k3zynl4u.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
     "dialect": "mysql"
   }
 }
