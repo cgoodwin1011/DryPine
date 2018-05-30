@@ -1,0 +1,56 @@
+doctype html
+head
+  meta(charset='UTF-8')
+  title Discussion!
+  // Bootstrap CSS
+  link(rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css' integrity='sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm' crossorigin='anonymous')
+  // jQuery
+  script(type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js')
+  // Moment.js
+  script(type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.16.0/moment.min.js')
+  // Google Fonts
+  link(href='https://fonts.googleapis.com/css?family=Shrikhand' rel='stylesheet')
+  // CSS
+  link(rel='stylesheet' type='text/css' href='assets/css/style.css')
+script.
+  $.get('api/postsInOrder');
+.jumbotron
+  h1.text-center Join Our Discusion
+  h2.text-center Reply or Start a New Thread
+  #loginBox
+    // login form
+    h3#loginLabel  Login or Join!
+    form#loginForm(name='logIn')
+      input#userEmail(type='email' placeholder='Your email')
+      br
+      input#userPassword(type='password' placeholder='Your password')
+      br
+      button#logInBtn(type='button' label='Log In')
+        span#logInBtnTxt Log In
+    form#registerForm(name='register' value='Register')
+      button#registerBtn(type='button' value='register')
+        span#registerBtnTxt Register
+.container
+  .row
+    .col-sm-8.col-sm-offset-2
+      h2#discussionHead Please sign in
+      hr
+      #rchat-area
+      // Display all rchats here
+    // form to start new thread
+    .col-sm-4.col-sm-offset-2
+      #newThreadBox
+        h2.text-center Start A New Thread
+        //
+          <p class="cool-font">Name</p>
+          <input id="author" class="form-control" type="text" placeholder="Enter Your Name">
+          <br>
+          <p class="cool-font">Comment</p>
+        textarea#rchat-box.form-control(rows='3' placeholder='Enter a Comment Here!')
+        button#rchat-submit.btn.btn-lg.pull-right Submit!
+script(type='text/javascript' src='assets/js/rchat.js')
+script.
+  function handleLoginErr(err) {
+  $("#alert .msg").text(err.responseJSON);
+  $("#alert").fadeIn(500);
+  };

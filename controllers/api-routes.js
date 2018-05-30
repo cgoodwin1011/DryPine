@@ -40,13 +40,13 @@ module.exports = function (app) {
 
   app.get("/api/login",
     passport.authenticate("local",
-    {
-      successRedirect: '/',
-      failureRedirect: '/404', // see text
-      // failureFlash: true // optional, see text as well
-    }),
+      {
+        successRedirect: '/',
+        failureRedirect: '/404', // see text
+        // failureFlash: true // optional, see text as well
+      }),
     function (req, res) {
-      console.log("res is", res);
+      // console.log("res is", res);
       res.redirect('/');
       res.end();
     }
@@ -69,16 +69,44 @@ module.exports = function (app) {
       console.log("there is a logged in user");
       db.Post.findAll({
         // sort: db.Post.postId,
-        order: [
-          ['replyingTo'],
-          ['postId']
-        ]
+        // order: [
+        //   ['replyingTo'],
+        //   ['postId']
+        // ]
       }).then(function (results) {
+        var threads = [];
+        var threadCollector = [];
+        var comments = [];
+        
+        for (i = 0; i < results.length; i++) {
+          if (results[i].postId == results[i].replyingTo) {
+            threads.push(results[i]);
+          } else {
+            comments.push(results[i]);
+          }
+        }
+
+        // console.log(threads);
+
+        sortPosts(threads, 'forward');
+        console.log(threads);
+        sortPosts(comments, 'forward');
+        for (i=0; i<threads.length; i++) {
+          threadCollector.push(threads[i]);
+          for (j=0; j<comments.length; j++) {
+            if (threads[i].postId == comments[j].replyingTo) {
+              threadCollector.push(comments[j]);
+            }
+          }
+        }
+        // console.log(threadCollector);
+
         // need to attach req.user to the results.
+        // here we sort posts so that threads are in revserse chronological order while comments are in chronological order.
         var user = [{
           user: req.user.email
         }];
-        user.push(results);
+        user.push(threadCollector);
         res.json(user);
       });
     } else {
@@ -86,6 +114,17 @@ module.exports = function (app) {
       // TODO NEED TO ADD ERROR FUNCTION
     }
   });
+  // ((x < y) ? -1 : ((x > y) ? 1 : 0))
+
+  function sortPosts(posts, order) {
+    // console.log("post 0 is ", posts[0]);
+    if (order == 'forward') {
+      posts.sort(function(a, b){return parseInt(a.postId) - parseInt(b.postId);});
+    } else if (order = 'reverse') {
+      posts.sort(function(a, b){return (parseInt(a.postId) - parseInt(b.postId));});
+      posts.reverse();
+    }
+  }
 
   //get all posts
   // returning them as JSON.
@@ -106,9 +145,9 @@ module.exports = function (app) {
     });
   });
 
-  app.get("/api/user", function(req, res) {
+  app.get("/api/user", function (req, res) {
     console.log(req.user);
-    res.json(req.user)
+    res.json(req.user);
   }
   )
 
@@ -157,10 +196,10 @@ module.exports = function (app) {
           db.Post.update({
             replyingTo: temp
           }, {
-            where: {
-              postId: temp
-            }
-          }).then(function (nextresult) {});
+              where: {
+                postId: temp
+              }
+            }).then(function (nextresult) { });
         });
         res.end();
       });

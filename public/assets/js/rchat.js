@@ -8,7 +8,7 @@ $(document).ready(function () {
   // a user is logged in
   $(document).on("click", "#registerBtn", function (req, res) {
       event.preventDefault();
-      
+
       // register new user
       if ($("#registerBtn").val() == 'register') {
         var registerEmail = $("#userEmail");
@@ -52,7 +52,7 @@ $(document).ready(function () {
     })
   }
 
-  // LOGIN BTN IMPLEMENTATION  
+  // LOGIN BTN IMPLEMENTATION
   // handles clicks on login button
   $(document).on("click", "#logInBtn", function (event) {
     event.preventDefault();
@@ -102,29 +102,13 @@ $(document).ready(function () {
         content: $("#rchat-box").val().trim(),
       };
       // response.json(x.get('id'))
-  
+
       $.post("/api/newthread", newThread)
         .then(function (res) {
           location.reload();
         })
-    
+
     } );
-
-
-
-
-
-    // var newThread = {
-    //   author: 'Joe',
-    //   content: $("#rchat-box").val().trim(),
-    // };
-    // // response.json(x.get('id'))
-
-    // $.post("/api/newthread", newThread)
-    //   .then(function (res) {
-    //     location.reload();
-    //   });
-
   });
 
   // display all existing posts, in order
@@ -133,23 +117,22 @@ $(document).ready(function () {
   $.get("/api/postsinorder", function (dataIn) {
     var theUser = dataIn[0];
     var data = dataIn[1];
+    console.log(data);
     if (theUser.user) {
       // logged in ...
       if (data.length !== 0) {
-        for (var i = data.length - 1; i >= 0; i--) {
+        // for (var i = data.length - 1; i >= 0; i--) {
+        for( i = 0; i < data.length; i++) {
           var row = $("<div>");
-          row.addClass("rchat");
-          row.addClass("clearfix");
-          row.attr('data-postId', data[i].postId);
-          row.attr('data-replyingTo', data[i].replyingTo);
-          row.append("<p><strong>" + data[i].author + "</strong> posted at " + moment(data[i].pTimestamp).format("h:mma on dddd") + "</p>");
-          row.append("<p>" + data[i].content + "</p>");
-          // row.append("<form action='api/replypost/"+data[i].postId+"?_method=GET' method='POST'>");
-
+          var htmlString = "<div class='rchat clearfix' 'data-postId'="+data[i].postId+" 'data-replyingTo'="+data[i].replyingTo+">";
+          htmlString += "<p><strong>" + data[i].author + "</strong> posted at " + moment(data[i].pTimestamp).format("h:mma on dddd") + "</p>";
+          htmlString += "<p>" + data[i].content + "</p>";
           if (data[i].postId == data[i].replyingTo || data[i].replyingTo == -1) {
-            row.append("<button id='replyTo" + data[i].postId + "' type='button' class='reply' onclick='onReplyClick(this.id)' style='float: right' >reply</button>");
-            row.append("<div id='replyToForm" + data[i].postId + "' class='a-reply'><form action='/api/newreply/" + data[i].postId + "' method='POST' id='replyForm" + data[i].postId + "' name='comment'>Your thoughts?<input type='textarea' name='content'><br>Your Name:<input type='textarea' name='author'><button type='submit' class='reply' style='float: right'>submit reply</button></form></div>");
+            htmlString += "<button id='replyTo" + data[i].postId + "' type='button' class='reply' onclick='onReplyClick(this.id)' style='float: right' >reply</button>";
+            htmlString += "<div id='replyToForm" + data[i].postId + "' class='a-reply'><form action='/api/newreply/" + data[i].postId + "' method='POST' id='replyForm" + data[i].postId + "' name='comment'>Your thoughts?<input type='textarea' name='content'><br>Your Name:<input type='textarea' name='author'><button type='submit' class='reply' style='float: right'>submit reply</button></form></div>"
+            row.append(htmlString);
           } else {
+            row.append(htmlString);
             row.addClass("rreply");
           }
           $("#rchat-area").prepend(row);
