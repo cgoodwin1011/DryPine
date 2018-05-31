@@ -1,13 +1,9 @@
-
-
-
-
 {
   "development": {
-    "username": "root",
-    "password": "root",
-    "database": "dryPines",
-    "host": "127.0.0.1",
+    "username": "xlaxcvynhmr7ladi",
+    "password": "el8xzr5h71b78gm2",
+    "database": "database_production",
+    "host": "k9xdebw4k3zynl4u.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
     "dialect": "mysql"
   },
   "test": {
@@ -25,3 +21,30 @@
     "dialect": "mysql"
   }
 }
+
+
+
+
+// {
+//   "development": {
+//     "username": "root",
+//     "password": "root",
+//     "database": "dryPines",
+//     "host": "127.0.0.1",
+//     "dialect": "mysql"
+//   },
+//   "test": {
+//     "username": "root",
+//     "password": null,
+//     "database": "database_test",
+//     "host": "127.0.0.1",
+//     "dialect": "mysql"
+//   },
+//   "production": {
+//     "username": "xlaxcvynhmr7ladi",
+//     "password": "el8xzr5h71b78gm2",
+//     "database": "database_production",
+//     "host": "k9xdebw4k3zynl4u.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
+//     "dialect": "mysql"
+//   }
+// }
