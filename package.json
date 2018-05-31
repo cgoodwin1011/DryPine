@@ -7,6 +7,9 @@
     "start": "node server",
     "start:prod": "npm run build && node server.js"
   },
+  "scripts": {
+    "start": "node server.js"
+  }
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/kimobrian/TwilioReact.git"
