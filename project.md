@@ -1,3 +1,9 @@
+# Bulletin board app 
+
+This is what we were able to complete.  The original vision is listed below.  #biting off more than you can chew.
+
+#what we wanted to write
+
 # IRL Chat/Meet App
 
 ## Functionality:
